@@ -24,6 +24,7 @@ module Fog
       request	  :get_key_pair
       request	  :create_key_pair
       request	  :delete_private_key
+      request	  :delete_key_pair
 
       #Workloads
       request	  :get_current_workload
@@ -167,9 +168,8 @@ module Fog
               :path     => "#{@path}/#{params[:path]}?format=json",
               :query    => params[:query]
             }))
-		#puts params
+
 		puts "Connection Established"
-		#puts response.body
 
           rescue Excon::Errors::Unauthorized => error
             if error.response.body != 'Bad username or password' # token expiration
@@ -191,8 +191,8 @@ module Fog
           unless response.body.empty?
             response.body = Fog::JSON.decode(response.body)
           end
-         #puts message = response.body[0]['zone']
-	response
+
+       	response
         end
 
       end
